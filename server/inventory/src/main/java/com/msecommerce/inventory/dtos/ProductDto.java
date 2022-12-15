@@ -1,11 +1,12 @@
-package com.msecommerce.product.dtos;
+package com.msecommerce.inventory.dtos;
 
 import java.io.Serializable;
 import java.util.UUID;
 
-public class ProductDto implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class ProductDto {
 
+    //private static final long serialVersionUID = 1L;
+    
     private UUID id;
     private String name;
     private Double price;

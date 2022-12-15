@@ -6,7 +6,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,10 +26,10 @@ public class ProductController {
     RabbitTemplate rabbitTemplate;
 
     @PostMapping("/register-product")
-    public ResponseEntity<Product> createProduct (@RequestBody @Validated ProductDto productDto){
+    public ResponseEntity<Product> createProduct (@RequestBody ProductDto productDto){
         Product product = productService.saveProduct(productDto);
         String routingKey = "INSERT-PRODUCT-QUEUE";
-        
+        productDto.setId(product.getId());
         rabbitTemplate.convertAndSend(routingKey, productDto);
         return ResponseEntity.ok(product);
     }

@@ -3,6 +3,8 @@ package com.msecommerce.product.services.impl;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.hibernate.id.UUIDGenerator;
+import org.hibernate.id.uuid.UuidGenerator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +23,11 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product saveProduct(ProductDto productDto) {
         Product product = new Product();
+        product.setId(UUID.randomUUID());
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
-
+        
         return productRepository.save(product);
     }
 
@@ -38,6 +41,10 @@ public class ProductServiceImpl implements ProductService{
             throw new RuntimeException("Produto inexistente");
         }
         
+    }
+
+    public Product getProductById(UUID id){
+        return productRepository.findById(id).get();
     }
     
 }
