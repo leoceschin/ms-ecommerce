@@ -10,6 +10,10 @@ services:
       - "8081:8080"
     depends_on:
       - catalog-db
+    environment:
+      DATABASE_URL: postgresql://catalog-db:5432/catalog-db
+      DATABASE_USER: leona
+      DATABASE_PASSWORD: leona
     
   inventory:
     container_name: inventory
@@ -20,6 +24,10 @@ services:
       - "8082:8080"
     depends_on:
       - inventory-db
+    environment:
+      DATABASE_URL: postgresql://inventory-db:5432/inventory-db
+      DATABASE_USER: leona
+      DATABASE_PASSWORD: leona
       
 
   product:

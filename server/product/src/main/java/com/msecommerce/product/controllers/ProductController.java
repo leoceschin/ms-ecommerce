@@ -2,6 +2,7 @@ package com.msecommerce.product.controllers;
 
 import java.util.UUID;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,16 @@ public class ProductController {
     @Autowired
     ProductServiceImpl productService;
 
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     @PostMapping("/register-product")
     public ResponseEntity<Product> createProduct (@RequestBody @Validated ProductDto productDto){
-        return ResponseEntity.ok(productService.saveProduct(productDto));
+        Product product = productService.saveProduct(productDto);
+        String routingKey = "INSERT-PRODUCT-QUEUE";
+        
+        rabbitTemplate.convertAndSend(routingKey, productDto);
+        return ResponseEntity.ok(product);
     }
 
     @DeleteMapping("/delete-product/{id}")

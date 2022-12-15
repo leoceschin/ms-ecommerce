@@ -21,7 +21,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product saveProduct(ProductDto productDto) {
         Product product = new Product();
-        BeanUtils.copyProperties(productDto, product);
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setDescription(productDto.getDescription());
+
         return productRepository.save(product);
     }
 

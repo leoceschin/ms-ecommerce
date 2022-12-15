@@ -3,6 +3,7 @@ O principal foco aqui é estudar como funcionam os microsserviços, utilizando D
 
 ## Instruções
 Após clonar o projeto você deve compilar todos os serviços para poder gerar o .jar nas pastas e o Docker montar as imagens. Para isso, rode o script abaixo:
+
 Linux / MacOS:
 ```
 sh compileFiles.sh
