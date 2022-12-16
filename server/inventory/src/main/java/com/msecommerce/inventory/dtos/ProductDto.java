@@ -1,6 +1,5 @@
 package com.msecommerce.inventory.dtos;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 public class ProductDto {

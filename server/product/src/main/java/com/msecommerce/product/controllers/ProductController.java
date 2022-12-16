@@ -28,9 +28,8 @@ public class ProductController {
     @PostMapping("/register-product")
     public ResponseEntity<Product> createProduct (@RequestBody ProductDto productDto){
         Product product = productService.saveProduct(productDto);
-        String routingKey = "INSERT-PRODUCT-QUEUE";
         productDto.setId(product.getId());
-        rabbitTemplate.convertAndSend(routingKey, productDto);
+        rabbitTemplate.convertAndSend("products.v1.sender" , "", productDto);
         return ResponseEntity.ok(product);
     }
 

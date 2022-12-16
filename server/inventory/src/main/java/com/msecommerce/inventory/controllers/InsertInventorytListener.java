@@ -14,7 +14,7 @@ public class InsertInventorytListener {
     @Autowired
     InventoryServiceImpl inventoryService;
 
-    @RabbitListener(queues = "INSERT-PRODUCT-QUEUE")
+    @RabbitListener(queues = "insert-product-queue")
     public void insertInventory(ProductDto productDto){
         inventoryService.updateInventory(productDto);
     }

@@ -1,6 +1,6 @@
 package com.msecommerce.product.configs;
 
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -14,12 +14,12 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
 @Configuration
 public class QueueConfig {
-    
     @Bean
-    public Queue insertProduct(){
-        return new Queue("INSERT-PRODUCT-QUEUE", true);
+    public FanoutExchange fanoutExchange(){
+        return new FanoutExchange("products.v1.sender");
     }
 
+    
     @Bean
     public RabbitAdmin rabbitAdmin (ConnectionFactory connectionFactory){
         return new RabbitAdmin(connectionFactory);
